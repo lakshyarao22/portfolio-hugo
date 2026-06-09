@@ -78,7 +78,7 @@ Edit the file, set `draft = false` when ready, push to `main`.
 
 ## Custom Domain
 
-The site is configured for `inqstv.in`. The CNAME file is in `static/CNAME`.
+The site is configured for `about.inqstv.in`. The CNAME file is in `static/CNAME`.
 
 DNS should point to:
 ```

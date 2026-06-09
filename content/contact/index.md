@@ -8,7 +8,7 @@ I'm always open to conversations about security automation, AI-augmented SOC ope
 
 - **Email:** lakshyarao22@gmail.com
 - **GitHub:** [lakshyarao22](https://github.com/lakshyarao22)
-- **Website:** [inqstv.in](https://inqstv.in)
+- **Website:** [about.inqstv.in](https://about.inqstv.in)
 - **Chrome Extension:** [Page Pilot](https://chromewebstore.google.com/detail/page-pilot/fbjapfnmaijdmggcbmnghmgacejokmce)
 
 ---
