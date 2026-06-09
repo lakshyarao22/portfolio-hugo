@@ -2,7 +2,8 @@ baseURL = "https://inqstv.in/"
 languageCode = "en-us"
 title = "Lakshya Rao"
 theme = "re-terminal"
-paginate = 5
+[pagination]
+  pagerSize = 5
 
 [params]
   contentTypeName = "blog"
