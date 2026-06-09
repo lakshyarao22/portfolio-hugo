@@ -75,7 +75,14 @@
       }
       const videos = data.items.slice(0, 4);
       track.innerHTML = videos.map(video => {
-        const videoId = video.link.split('v=')[1];
+        let videoId = '';
+        if (video.link.includes('v=')) {
+          videoId = video.link.split('v=')[1].split('&')[0];
+        } else if (video.link.includes('/shorts/')) {
+          videoId = video.link.split('/shorts/')[1].split('?')[0];
+        } else {
+          videoId = video.guid.split(':').pop();
+        }
         const thumbnail = `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`;
         return `
           <a class="yt-card" href="${video.link}" target="_blank" rel="noopener">
