@@ -1,0 +1,77 @@
+baseURL = "https://inqstv.in/"
+languageCode = "en-us"
+title = "Lakshya Rao"
+theme = "terminal"
+paginate = 5
+
+[params]
+  contentTypeName = "blog"
+  themeColor = "green"
+  showMenuItems = 6
+  showLanguageSelector = false
+  fullWidthTheme = false
+  centerTheme = true
+  autoCover = true
+  showLastUpdated = false
+  description = "Security Engineer | Developer | Tinkerer"
+
+[params.logo]
+  logoText = "lakshya@rao ~$"
+  logoHomeLink = "/"
+
+[params.twitter]
+  creator = ""
+
+[languages]
+  [languages.en]
+    languageName = "English"
+    title = "Lakshya Rao"
+
+    [languages.en.params]
+      subtitle = "Security Engineer | Developer | Tinkerer"
+      owner = "Lakshya Rao"
+      keywords = "cybersecurity, security engineer, CSIRT, SOAR, SIEM, penetration testing, developer, portfolio"
+      copyright = "Lakshya Rao"
+      menuMore = "Show more"
+      readMore = "Read more"
+      readOtherPosts = "Read other posts"
+      newerPosts = "Newer posts"
+      olderPosts = "Older posts"
+      missingContentMessage = "Page not found."
+
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        identifier = "about"
+        name = "About"
+        url = "/about"
+        weight = 1
+      [[languages.en.menu.main]]
+        identifier = "experience"
+        name = "Experience"
+        url = "/experience"
+        weight = 2
+      [[languages.en.menu.main]]
+        identifier = "projects"
+        name = "Projects"
+        url = "/projects"
+        weight = 3
+      [[languages.en.menu.main]]
+        identifier = "skills"
+        name = "Skills"
+        url = "/skills"
+        weight = 4
+      [[languages.en.menu.main]]
+        identifier = "blog"
+        name = "Blog"
+        url = "/blog"
+        weight = 5
+      [[languages.en.menu.main]]
+        identifier = "contact"
+        name = "Contact"
+        url = "/contact"
+        weight = 6
+
+[module]
+  [module.hugoVersion]
+    extended = true
+    min = "0.116.0"
