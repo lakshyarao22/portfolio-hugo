@@ -1,5 +1,5 @@
 +++
-title = ""
+title = "Be Inquisitive, Be Informed, Be Involved"
 +++
 
 # Hey, I'm Lakshya Rao

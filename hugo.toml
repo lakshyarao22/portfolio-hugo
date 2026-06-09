@@ -1,4 +1,4 @@
-baseURL = "https://inqstv.in/"
+baseURL = "https://about.inqstv.in/"
 languageCode = "en-us"
 title = "Lakshya Rao"
 theme = "re-terminal"
@@ -17,7 +17,7 @@ theme = "re-terminal"
   description = "Security Engineer | Developer | Tinkerer"
 
 [params.logo]
-  logoText = "lakshya@rao ~$"
+  logoText = "lakshya@inqstv.in ~$"
   logoHomeLink = "/"
 
 [params.twitter]
