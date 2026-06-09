@@ -33,4 +33,10 @@ When I'm not responding to incidents or writing detection rules, I'm building to
 
 ---
 
+## Latest Videos
+
+{{< youtube-carousel >}}
+
+---
+
 → [More about me](/about) | [My projects](/projects) | [Get in touch](/contact)
