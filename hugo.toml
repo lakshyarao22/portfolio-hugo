@@ -1,7 +1,7 @@
 baseURL = "https://inqstv.in/"
 languageCode = "en-us"
 title = "Lakshya Rao"
-theme = "terminal"
+theme = "re-terminal"
 paginate = 5
 
 [params]
