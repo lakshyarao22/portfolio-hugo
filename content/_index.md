@@ -14,13 +14,13 @@ When I'm not responding to incidents or writing detection rules, I'm building to
 
 ## What I Do
 
-**Defend** — I investigate security incidents, hunt threats, and build detection rules that catch real attacks, not noise.
+<span class="keyword-defend">Defend</span> — I investigate security incidents, hunt threats, and build detection rules that catch real attacks, not noise.
 
-**Automate** — I build SOAR integrations and automation that cut response times by 60%. If an analyst does it twice, I script it once.
+<span class="keyword-automate">Automate</span> — I build SOAR integrations and automation that cut response times by 60%. If an analyst does it twice, I script it once.
 
-**Break** — I pentest web applications, triage bug bounty reports, and validate vulnerabilities before they become problems.
+<span class="keyword-break">Break</span> — I pentest web applications, triage bug bounty reports, and validate vulnerabilities before they become problems.
 
-**Build** — From AWS Lambda functions to Chrome extensions to AI-powered SOC toolkits — I ship code that solves real problems.
+<span class="keyword-build">Build</span> — From AWS Lambda functions to Chrome extensions to AI-powered SOC toolkits — I ship code that solves real problems.
 
 ---
 
