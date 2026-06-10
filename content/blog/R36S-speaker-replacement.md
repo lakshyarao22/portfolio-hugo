@@ -5,8 +5,6 @@ draft = false
 tags = ["Retro", "Hardware", "DIY"]
 +++
 
-# How I Replaced Speaker on R36S Retro Handheld
-
 {{< youtube ueczGQlkU04 >}}
 
 Recently, I had the opportunity to replace the speaker on my R36S retro handheld gaming device. The original speaker had started to produce distorted sound, which was quite disappointing given how much I enjoy gaming on this device. In this post, I'll share the steps I took to successfully replace the speaker and restore the audio quality.
