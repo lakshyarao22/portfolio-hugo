@@ -1,7 +1,7 @@
 +++
 title = "Building AI-Augmented Security Workflows"
 date = "2026-06-09"
-draft = false
+draft = true
 tags = ["security", "ai", "automation"]
 +++
 
