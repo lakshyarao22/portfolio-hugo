@@ -1,7 +1,7 @@
 +++
 title = "How I Replaced Speaker on R36S Retro Handheld"
 date = "2026-06-09"
-draft = true
+draft = false
 tags = ["Retro", "Hardware", "DIY"]
 +++
 
