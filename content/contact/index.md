@@ -12,6 +12,7 @@ I'm always open to conversations about security automation, AI-augmented SOC ope
 - **YouTube:** [Lakshya](https://www.youtube.com/@inqstv)
 - **Website:** [about.inqstv.in](https://about.inqstv.in)
 - **Chrome Extension:** [Page Pilot](https://chromewebstore.google.com/detail/page-pilot/fbjapfnmaijdmggcbmnghmgacejokmce)
+- **Resume:** [Download PDF](/resume/Lakshya_Rao_Resume.pdf)
 
 ---
 

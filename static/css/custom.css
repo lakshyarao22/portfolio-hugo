@@ -1,19 +1,155 @@
+/* === Keyword Colors (Homepage) === */
 .keyword-defend {
   color: #9bf6ff;
   font-weight: 700;
 }
-
 .keyword-automate {
   color: #caffbf;
   font-weight: 700;
 }
-
 .keyword-break {
   color: #ffadad;
   font-weight: 700;
 }
-
 .keyword-build {
   color: #bdb2ff;
   font-weight: 700;
+}
+
+/* === Toggle Buttons === */
+.header__toggles {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+.toggle-btn {
+  background: transparent;
+  border: 1px solid var(--border-color);
+  color: var(--color);
+  cursor: pointer;
+  padding: 0.3rem 0.6rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.toggle-btn.active {
+  background: var(--accent);
+  color: var(--accent-contrast-color);
+  border-color: var(--accent);
+}
+
+/* === Light Mode === */
+body.light-mode {
+  --background: #fefcfa;
+  --color: #1a1a1a;
+  --border-color: rgba(0, 0, 0, 0.1);
+  --menu-color: #1a1a1a;
+  --accent-contrast-color: white;
+  --syntax-punctuation-color: black;
+  --syntax-comment-color: rgba(0, 0, 0, 0.3);
+  --syntax-code-border-color: rgba(0, 0, 0, 0.1);
+  --syntax-code-copy-button-color: #444;
+}
+
+body.light-mode .header,
+body.light-mode .footer {
+  border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .post-content a {
+  color: var(--accent);
+}
+
+body.light-mode pre,
+body.light-mode code {
+  background: #f5f5f5;
+  color: #333;
+}
+
+body.light-mode .keyword-defend { color: #0096a3; }
+body.light-mode .keyword-automate { color: #1eb100; }
+body.light-mode .keyword-break { color: #d63031; }
+body.light-mode .keyword-build { color: #6c5ce7; }
+
+/* === Hacker Mode Panel === */
+.hacker-panel {
+  background: #0a0a0a;
+  border-bottom: 1px solid #333;
+  padding: 1rem 2rem;
+  font-family: 'Courier New', monospace;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.ascii-art {
+  color: #caffbf;
+  font-size: 0.7rem;
+  line-height: 1.2;
+  margin: 0 0 1rem 0;
+  text-align: center;
+  overflow-x: auto;
+}
+
+.command-line {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.command-prompt {
+  color: #9bf6ff;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+.command-input {
+  background: transparent;
+  border: none;
+  color: #caffbf;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  flex: 1;
+  outline: none;
+  caret-color: #caffbf;
+}
+
+.command-output {
+  margin-top: 0.5rem;
+  color: #bbb;
+  font-size: 0.85rem;
+  white-space: pre-wrap;
+  min-height: 0;
+}
+
+body.light-mode .hacker-panel {
+  background: #f0f0f0;
+  border-bottom-color: #ccc;
+}
+
+body.light-mode .ascii-art { color: #1eb100; }
+body.light-mode .command-prompt { color: #0096a3; }
+body.light-mode .command-input { color: #333; caret-color: #333; }
+body.light-mode .command-output { color: #555; }
+
+/* === Responsive === */
+@media (max-width: 684px) {
+  .header__toggles {
+    margin-right: 0.5rem;
+  }
+  .ascii-art {
+    font-size: 0.5rem;
+  }
+  .hacker-panel {
+    padding: 0.5rem 1rem;
+  }
 }

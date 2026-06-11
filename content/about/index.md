@@ -12,6 +12,8 @@ Previously worked across enterprise SIEM (RSA NetWitness, ArcSight), WAF (Radwar
 
 Strong software engineering background — building production automation in Python, serverless functions on AWS, Chrome extensions, mobile applications, and AI-powered security tooling using local LLMs and MCP integrations.
 
+**[Download Resume (PDF)](/resume/Lakshya_Rao_Resume.pdf)**
+
 ---
 
 ## Beyond Work

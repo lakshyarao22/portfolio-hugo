@@ -1,0 +1,133 @@
+<script>
+(function() {
+  // === Dark/Light Mode Toggle ===
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+
+  function setTheme(mode) {
+    if (mode === 'light') {
+      document.body.classList.add('light-mode');
+      themeToggle.classList.add('active');
+      themeIcon.textContent = '☀';
+    } else {
+      document.body.classList.remove('light-mode');
+      themeToggle.classList.remove('active');
+      themeIcon.textContent = '◐';
+    }
+    localStorage.setItem('theme', mode);
+  }
+
+  const savedTheme = localStorage.getItem('theme') || 'dark';
+  setTheme(savedTheme);
+
+  themeToggle.addEventListener('click', function() {
+    const current = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+    setTheme(current === 'light' ? 'dark' : 'light');
+  });
+
+  // === Hacker Mode Toggle ===
+  const hackerToggle = document.getElementById('hacker-toggle');
+  const hackerPanel = document.getElementById('hacker-panel');
+  const commandInput = document.getElementById('command-input');
+  const commandOutput = document.getElementById('command-output');
+
+  function setHackerMode(active) {
+    if (active) {
+      hackerPanel.style.display = 'block';
+      hackerToggle.classList.add('active');
+      commandInput.focus();
+    } else {
+      hackerPanel.style.display = 'none';
+      hackerToggle.classList.remove('active');
+      commandOutput.textContent = '';
+    }
+    localStorage.setItem('hackerMode', active ? 'on' : 'off');
+  }
+
+  const savedHacker = localStorage.getItem('hackerMode') === 'on';
+  setHackerMode(savedHacker);
+
+  hackerToggle.addEventListener('click', function() {
+    const active = hackerPanel.style.display !== 'none';
+    setHackerMode(!active);
+  });
+
+  // Ctrl+H keyboard shortcut
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.key === 'h') {
+      e.preventDefault();
+      const active = hackerPanel.style.display !== 'none';
+      setHackerMode(!active);
+    }
+  });
+
+  // === Command Navigation ===
+  const commands = {
+    'help': 'Available commands:\n  ls          — list pages\n  cd <page>   — navigate to page\n  whoami      — about me\n  clear       — clear output\n  theme       — toggle dark/light\n  exit        — close hacker mode',
+    'ls': 'about/  experience/  projects/  skills/  blog/  contact/  now/',
+    'whoami': 'Lakshya Rao — Security Engineer | Developer | Tinkerer',
+    'clear': '__CLEAR__',
+    'theme': '__THEME__',
+    'exit': '__EXIT__',
+    'pwd': '/home/visitor/inqstv.in',
+    'uname': 'Hugo/re-terminal on GitHub Pages',
+    'date': new Date().toString(),
+    'echo hello': 'hello',
+    'cat /etc/motd': 'Be Inquisitive, Be Informed, Be Involved.',
+    'sudo rm -rf /': 'Nice try. Permission denied.'
+  };
+
+  const navPages = {
+    'about': '/about',
+    'experience': '/experience',
+    'projects': '/projects',
+    'skills': '/skills',
+    'blog': '/blog',
+    'contact': '/contact',
+    'now': '/now',
+    'home': '/',
+    '~': '/',
+    '/': '/',
+    '..': '/'
+  };
+
+  commandInput.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') {
+      const input = commandInput.value.trim().toLowerCase();
+      commandInput.value = '';
+
+      if (!input) return;
+
+      // Handle cd command
+      if (input.startsWith('cd ')) {
+        const target = input.slice(3).replace(/\//g, '').trim();
+        if (navPages[target]) {
+          commandOutput.textContent = 'Navigating to ' + target + '...';
+          setTimeout(function() { window.location.href = navPages[target]; }, 300);
+          return;
+        } else {
+          commandOutput.textContent = 'bash: cd: ' + target + ': No such directory\nTry: ls';
+          return;
+        }
+      }
+
+      // Handle known commands
+      if (commands[input]) {
+        if (commands[input] === '__CLEAR__') {
+          commandOutput.textContent = '';
+        } else if (commands[input] === '__THEME__') {
+          const current = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+          setTheme(current === 'light' ? 'dark' : 'light');
+          commandOutput.textContent = 'Theme switched to ' + (current === 'light' ? 'dark' : 'light') + ' mode.';
+        } else if (commands[input] === '__EXIT__') {
+          setHackerMode(false);
+        } else {
+          commandOutput.textContent = commands[input];
+        }
+      } else {
+        commandOutput.textContent = 'bash: ' + input + ': command not found\nType "help" for available commands.';
+      }
+    }
+  });
+})();
+</script>

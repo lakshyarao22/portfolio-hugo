@@ -1,0 +1,41 @@
+<header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      {{ partial "logo.html" . }}
+    </div>
+    <div class="header__toggles">
+      <button id="theme-toggle" class="toggle-btn" title="Toggle light/dark mode" aria-label="Toggle light/dark mode">
+        <span class="toggle-icon" id="theme-icon">◐</span>
+      </button>
+      <button id="hacker-toggle" class="toggle-btn" title="Hacker Mode (Ctrl+H)" aria-label="Toggle hacker mode">
+        <span class="toggle-icon">&gt;_</span>
+      </button>
+    </div>
+    {{ if len $.Site.Menus }}
+      {{ partial "mobile-menu.html" . }}
+    {{ end }}
+    {{ if and $.Site.Params.showLanguageSelector (len $.Site.Home.AllTranslations) }}
+      {{ partial "language-menu.html" . }}
+    {{ end }}
+  </div>
+  {{ if len $.Site.Menus }}
+    {{ partial "menu.html" . }}
+  {{ end }}
+</header>
+
+<!-- Hacker Mode: ASCII Banner + Command Input -->
+<div id="hacker-panel" class="hacker-panel" style="display:none;">
+  <pre class="ascii-art">
+ _                   _
+(_)_ __   __ _ ___ | |___   __
+| | '_ \ / _` / __|| __\ \ / /
+| | | | | (_| \__ \| |_ \ V /
+|_|_| |_|\__, |___/ \__| \_/
+            |_|
+  </pre>
+  <div class="command-line">
+    <span class="command-prompt">visitor@inqstv.in:~$ </span>
+    <input type="text" id="command-input" class="command-input" placeholder="type 'help' for commands..." autocomplete="off" spellcheck="false" />
+  </div>
+  <div id="command-output" class="command-output"></div>
+</div>

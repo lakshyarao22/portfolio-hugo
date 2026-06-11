@@ -1,0 +1,20 @@
+{{ define "main" }}
+  <div class="post">
+    <h1 class="post-title">$ cat 404</h1>
+
+    <div class="post-content">
+      <pre><code>bash: page not found: No such file or directory
+
+The page you're looking for doesn't exist.
+Maybe it was moved, deleted, or never existed in the first place.
+
+Available commands:
+  cd /        — Go home
+  cd /about   — About me
+  cd /projects — My work
+  cd /blog    — Blog posts</code></pre>
+
+      <p><a href="{{ "/" | absURL }}">← Back to home</a></p>
+    </div>
+  </div>
+{{ end }}

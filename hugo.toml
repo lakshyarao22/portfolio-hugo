@@ -8,13 +8,14 @@ theme = "re-terminal"
 [params]
   contentTypeName = "blog"
   themeColor = "green"
-  showMenuItems = 6
+  showMenuItems = 7
   showLanguageSelector = false
   fullWidthTheme = false
   centerTheme = true
   autoCover = true
   showLastUpdated = false
   description = "Security Engineer | Developer | Tinkerer"
+  favicon = "/img/favicon.svg"
 
 [params.logo]
   logoText = "lakshya@inqstv.in ~$"
@@ -71,6 +72,15 @@ theme = "re-terminal"
         name = "Contact"
         url = "/contact"
         weight = 6
+      [[languages.en.menu.main]]
+        identifier = "now"
+        name = "Now"
+        url = "/now"
+        weight = 7
+
+[taxonomies]
+  tag = "tags"
+  category = "categories"
 
 [module]
   [module.hugoVersion]
