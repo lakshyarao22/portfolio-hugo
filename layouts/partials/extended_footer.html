@@ -53,7 +53,20 @@
     { cmd: 'resume', desc: 'Download resume PDF' },
     { cmd: 'github', desc: 'Open GitHub profile' },
     { cmd: 'linkedin', desc: 'Open LinkedIn profile' },
-    { cmd: 'youtube', desc: 'Open YouTube channel' }
+    { cmd: 'youtube', desc: 'Open YouTube channel' },
+    { cmd: 'sudo rm -rf /', desc: '...' },
+    { cmd: 'vim', desc: 'Open the editor' },
+    { cmd: 'neofetch', desc: 'System info (fancy)' },
+    { cmd: 'ping', desc: 'Ping the server' },
+    { cmd: 'history', desc: 'Command history' },
+    { cmd: 'cat /etc/passwd', desc: 'Read system file' },
+    { cmd: 'hack nasa', desc: 'Advanced hacking' },
+    { cmd: 'make coffee', desc: 'Brew something' },
+    { cmd: 'matrix', desc: 'Enter the matrix' },
+    { cmd: 'uptime', desc: 'How long you been here' },
+    { cmd: 'curl inqstv.in', desc: 'Fetch site' },
+    { cmd: 'echo hello', desc: 'Print text' },
+    { cmd: 'top', desc: 'Running processes' }
   ];
 
   var navPages = {
@@ -272,15 +285,57 @@
         window.open('https://www.youtube.com/@inqstv', '_blank');
         showInfo('Opening YouTube...');
         break;
+      case 'sudo rm -rf /':
+        showError('Nice try. Permission denied. 🛡️');
+        break;
+      case 'vim':
+        showInfo('You are now trapped in Vim. Press Ctrl+H to escape.');
+        break;
+      case 'neofetch':
+        showInfo('OS: Hugo/re-terminal\\nHost: GitHub Pages\\nShell: hacker-mode v1.0\\nTheme: re-terminal [green]\\nUser: visitor@inqstv.in');
+        break;
+      case 'ping':
+        showInfo('PING inqstv.in (185.199.108.153): 64 bytes, time=0.42ms\\n--- you are already here ---');
+        break;
+      case 'history':
+        showInfo('1  cd about\\n2  whoami\\n3  sudo rm -rf /\\n4  nice try\\n5  history');
+        break;
+      case 'cat /etc/passwd':
+        showInfo('root:x:0:0:root:/root:/bin/bash\\nvisitor:x:1000:1000:just looking:/home/visitor:/bin/curiosity');
+        break;
+      case 'hack nasa':
+        showInfo('Access denied. NASA has been notified. FBI is on the way. 🚔');
+        break;
+      case 'make coffee':
+        showInfo('☕ Brewing... Error 418: I\\'m a teapot.');
+        break;
+      case 'matrix':
+        showInfo('Wake up, Neo... The Matrix has you. Follow the white rabbit. 🐇');
+        break;
+      case 'uptime':
+        showInfo('up ' + Math.floor((Date.now() - performance.timing.navigationStart) / 1000) + ' seconds — feels longer, doesn\\'t it?');
+        break;
+      case 'curl inqstv.in':
+        showInfo('HTTP/1.1 200 OK\\nContent-Type: text/vibes\\n\\n{\"status\": \"hacking in progress\"}');
+        break;
+      case 'echo hello':
+        showInfo('hello 👋');
+        break;
+      case 'top':
+        showInfo('PID  CMD         CPU\\n001  curiosity   99%\\n002  creativity  87%\\n003  caffeine    42%\\n004  sleep       0%');
+        break;
       default:
         showError(input + ': command not found. Type "help" for commands.');
     }
   }
 
   function showInfo(msg) {
-    suggestions.innerHTML = '<div class="suggestion-item"><span class="suggestion-item__cmd">' + msg + '</span><span class="suggestion-item__desc"></span></div>';
+    var lines = msg.split('\\n');
+    suggestions.innerHTML = lines.map(function(line) {
+      return '<div class="suggestion-item"><span class="suggestion-item__cmd">' + line + '</span><span class="suggestion-item__desc"></span></div>';
+    }).join('');
     suggestions.classList.add('visible');
-    setTimeout(function() { showSuggestions(''); }, 2000);
+    setTimeout(function() { showSuggestions(''); }, 3000);
   }
 
   function showError(msg) {
