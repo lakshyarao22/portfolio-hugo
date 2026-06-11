@@ -104,12 +104,16 @@
 
   // === Suggestions & Autocomplete ===
   function showSuggestions(query) {
-    var filtered = allCommands.filter(function(c) {
-      return c.cmd.startsWith(query.toLowerCase());
-    });
-
-    if (query === '' || filtered.length === 0) {
-      filtered = allCommands.slice(0, 8);
+    var filtered;
+    if (query === '') {
+      filtered = allCommands;
+    } else {
+      filtered = allCommands.filter(function(c) {
+        return c.cmd.startsWith(query.toLowerCase());
+      });
+      if (filtered.length === 0) {
+        filtered = allCommands;
+      }
     }
 
     selectedIndex = -1;
@@ -221,6 +225,7 @@
 
     switch (input) {
       case 'help':
+        commandInput.value = '';
         showSuggestions('');
         break;
       case 'ls':
