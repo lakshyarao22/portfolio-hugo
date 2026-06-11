@@ -1,83 +1,62 @@
 <script>
 (function() {
   // === Dark/Light Mode Toggle ===
-  const themeToggle = document.getElementById('theme-toggle');
-  const themeIcon = document.getElementById('theme-icon');
+  var themeToggle = document.getElementById('theme-toggle');
+  var themeIcon = document.getElementById('theme-icon');
 
   function setTheme(mode) {
     if (mode === 'light') {
       document.body.classList.add('light-mode');
       themeToggle.classList.add('active');
-      themeIcon.textContent = '☀';
+      themeIcon.textContent = '\u2600';
     } else {
       document.body.classList.remove('light-mode');
       themeToggle.classList.remove('active');
-      themeIcon.textContent = '◐';
+      themeIcon.textContent = '\u25D0';
     }
     localStorage.setItem('theme', mode);
   }
 
-  const savedTheme = localStorage.getItem('theme') || 'dark';
-  setTheme(savedTheme);
+  setTheme(localStorage.getItem('theme') || 'dark');
 
   themeToggle.addEventListener('click', function() {
-    const current = document.body.classList.contains('light-mode') ? 'light' : 'dark';
-    setTheme(current === 'light' ? 'dark' : 'light');
+    var isLight = document.body.classList.contains('light-mode');
+    setTheme(isLight ? 'dark' : 'light');
   });
 
-  // === Hacker Mode Toggle ===
-  const hackerToggle = document.getElementById('hacker-toggle');
-  const hackerPanel = document.getElementById('hacker-panel');
-  const commandInput = document.getElementById('command-input');
-  const commandOutput = document.getElementById('command-output');
+  // === Hacker Mode ===
+  var hackerToggle = document.getElementById('hacker-toggle');
+  var overlay = document.getElementById('hacker-overlay');
+  var commandInput = document.getElementById('command-input');
+  var suggestions = document.getElementById('command-suggestions');
+  var ghost = document.getElementById('command-ghost');
+  var selectedIndex = -1;
 
-  function setHackerMode(active) {
-    if (active) {
-      hackerPanel.style.display = 'block';
-      hackerToggle.classList.add('active');
-      commandInput.focus();
-    } else {
-      hackerPanel.style.display = 'none';
-      hackerToggle.classList.remove('active');
-      commandOutput.textContent = '';
-    }
-    localStorage.setItem('hackerMode', active ? 'on' : 'off');
-  }
+  var allCommands = [
+    { cmd: 'help', desc: 'Show all available commands' },
+    { cmd: 'ls', desc: 'List all pages' },
+    { cmd: 'cd about', desc: 'Go to About page' },
+    { cmd: 'cd experience', desc: 'Go to Experience page' },
+    { cmd: 'cd projects', desc: 'Go to Projects page' },
+    { cmd: 'cd skills', desc: 'Go to Skills page' },
+    { cmd: 'cd blog', desc: 'Go to Blog' },
+    { cmd: 'cd contact', desc: 'Go to Contact page' },
+    { cmd: 'cd now', desc: 'Go to Now page' },
+    { cmd: 'cd home', desc: 'Go to Homepage' },
+    { cmd: 'whoami', desc: 'About the site owner' },
+    { cmd: 'theme', desc: 'Toggle dark/light mode' },
+    { cmd: 'clear', desc: 'Clear suggestions' },
+    { cmd: 'exit', desc: 'Close hacker mode' },
+    { cmd: 'pwd', desc: 'Print current path' },
+    { cmd: 'date', desc: 'Show current date/time' },
+    { cmd: 'uname', desc: 'System info' },
+    { cmd: 'resume', desc: 'Download resume PDF' },
+    { cmd: 'github', desc: 'Open GitHub profile' },
+    { cmd: 'linkedin', desc: 'Open LinkedIn profile' },
+    { cmd: 'youtube', desc: 'Open YouTube channel' }
+  ];
 
-  const savedHacker = localStorage.getItem('hackerMode') === 'on';
-  setHackerMode(savedHacker);
-
-  hackerToggle.addEventListener('click', function() {
-    const active = hackerPanel.style.display !== 'none';
-    setHackerMode(!active);
-  });
-
-  // Ctrl+H keyboard shortcut
-  document.addEventListener('keydown', function(e) {
-    if (e.ctrlKey && e.key === 'h') {
-      e.preventDefault();
-      const active = hackerPanel.style.display !== 'none';
-      setHackerMode(!active);
-    }
-  });
-
-  // === Command Navigation ===
-  const commands = {
-    'help': 'Available commands:\n  ls          — list pages\n  cd <page>   — navigate to page\n  whoami      — about me\n  clear       — clear output\n  theme       — toggle dark/light\n  exit        — close hacker mode',
-    'ls': 'about/  experience/  projects/  skills/  blog/  contact/  now/',
-    'whoami': 'Lakshya Rao — Security Engineer | Developer | Tinkerer',
-    'clear': '__CLEAR__',
-    'theme': '__THEME__',
-    'exit': '__EXIT__',
-    'pwd': '/home/visitor/inqstv.in',
-    'uname': 'Hugo/re-terminal on GitHub Pages',
-    'date': new Date().toString(),
-    'echo hello': 'hello',
-    'cat /etc/motd': 'Be Inquisitive, Be Informed, Be Involved.',
-    'sudo rm -rf /': 'Nice try. Permission denied.'
-  };
-
-  const navPages = {
+  var navPages = {
     'about': '/about',
     'experience': '/experience',
     'projects': '/projects',
@@ -91,43 +70,218 @@
     '..': '/'
   };
 
-  commandInput.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-      const input = commandInput.value.trim().toLowerCase();
+  function setHackerMode(active) {
+    if (active) {
+      overlay.style.display = 'block';
+      hackerToggle.classList.add('active');
+      commandInput.focus();
+      showSuggestions('');
+    } else {
+      overlay.style.display = 'none';
+      hackerToggle.classList.remove('active');
+      suggestions.classList.remove('visible');
+      suggestions.innerHTML = '';
+      ghost.textContent = '';
       commandInput.value = '';
+    }
+    localStorage.setItem('hackerMode', active ? 'on' : 'off');
+  }
 
-      if (!input) return;
+  setHackerMode(localStorage.getItem('hackerMode') === 'on');
 
-      // Handle cd command
-      if (input.startsWith('cd ')) {
-        const target = input.slice(3).replace(/\//g, '').trim();
-        if (navPages[target]) {
-          commandOutput.textContent = 'Navigating to ' + target + '...';
-          setTimeout(function() { window.location.href = navPages[target]; }, 300);
-          return;
-        } else {
-          commandOutput.textContent = 'bash: cd: ' + target + ': No such directory\nTry: ls';
-          return;
-        }
-      }
+  hackerToggle.addEventListener('click', function() {
+    var active = overlay.style.display !== 'none';
+    setHackerMode(!active);
+  });
 
-      // Handle known commands
-      if (commands[input]) {
-        if (commands[input] === '__CLEAR__') {
-          commandOutput.textContent = '';
-        } else if (commands[input] === '__THEME__') {
-          const current = document.body.classList.contains('light-mode') ? 'light' : 'dark';
-          setTheme(current === 'light' ? 'dark' : 'light');
-          commandOutput.textContent = 'Theme switched to ' + (current === 'light' ? 'dark' : 'light') + ' mode.';
-        } else if (commands[input] === '__EXIT__') {
-          setHackerMode(false);
-        } else {
-          commandOutput.textContent = commands[input];
-        }
-      } else {
-        commandOutput.textContent = 'bash: ' + input + ': command not found\nType "help" for available commands.';
-      }
+  document.addEventListener('keydown', function(e) {
+    if (e.ctrlKey && e.key === 'h') {
+      e.preventDefault();
+      var active = overlay.style.display !== 'none';
+      setHackerMode(!active);
     }
   });
+
+  // === Suggestions & Autocomplete ===
+  function showSuggestions(query) {
+    var filtered = allCommands.filter(function(c) {
+      return c.cmd.startsWith(query.toLowerCase());
+    });
+
+    if (query === '' || filtered.length === 0) {
+      filtered = allCommands.slice(0, 8);
+    }
+
+    selectedIndex = -1;
+    suggestions.innerHTML = filtered.map(function(c, i) {
+      return '<div class="suggestion-item" data-cmd="' + c.cmd + '" data-index="' + i + '">' +
+        '<span class="suggestion-item__cmd">' + c.cmd + '</span>' +
+        '<span class="suggestion-item__desc">' + c.desc + '</span>' +
+        '</div>';
+    }).join('');
+    suggestions.classList.add('visible');
+
+    // Update ghost text (tab completion hint)
+    if (query.length > 0 && filtered.length > 0 && filtered[0].cmd !== query.toLowerCase()) {
+      ghost.textContent = filtered[0].cmd.slice(query.length);
+    } else {
+      ghost.textContent = '';
+    }
+  }
+
+  commandInput.addEventListener('input', function() {
+    showSuggestions(commandInput.value.trim());
+  });
+
+  commandInput.addEventListener('keydown', function(e) {
+    var items = suggestions.querySelectorAll('.suggestion-item');
+
+    if (e.key === 'Tab') {
+      e.preventDefault();
+      // Autocomplete with top suggestion
+      var filtered = allCommands.filter(function(c) {
+        return c.cmd.startsWith(commandInput.value.trim().toLowerCase());
+      });
+      if (filtered.length > 0) {
+        commandInput.value = filtered[selectedIndex >= 0 ? selectedIndex : 0].cmd;
+        ghost.textContent = '';
+        showSuggestions(commandInput.value);
+      }
+      return;
+    }
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+      updateSelected(items);
+      return;
+    }
+
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      selectedIndex = Math.max(selectedIndex - 1, -1);
+      updateSelected(items);
+      return;
+    }
+
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      var cmd;
+      if (selectedIndex >= 0 && items[selectedIndex]) {
+        cmd = items[selectedIndex].getAttribute('data-cmd');
+      } else {
+        cmd = commandInput.value.trim().toLowerCase();
+      }
+      commandInput.value = '';
+      ghost.textContent = '';
+      executeCommand(cmd);
+      return;
+    }
+
+    if (e.key === 'Escape') {
+      setHackerMode(false);
+    }
+  });
+
+  function updateSelected(items) {
+    items.forEach(function(el, i) {
+      el.classList.toggle('selected', i === selectedIndex);
+    });
+    if (selectedIndex >= 0 && items[selectedIndex]) {
+      commandInput.value = items[selectedIndex].getAttribute('data-cmd');
+      ghost.textContent = '';
+    }
+  }
+
+  // Click on suggestion
+  suggestions.addEventListener('click', function(e) {
+    var item = e.target.closest('.suggestion-item');
+    if (item) {
+      var cmd = item.getAttribute('data-cmd');
+      commandInput.value = '';
+      ghost.textContent = '';
+      executeCommand(cmd);
+    }
+  });
+
+  // === Command Execution ===
+  function executeCommand(input) {
+    if (!input) return;
+
+    // cd command
+    if (input.startsWith('cd ')) {
+      var target = input.slice(3).replace(/\//g, '').trim();
+      if (navPages[target]) {
+        window.location.href = navPages[target];
+      } else {
+        showError('cd: ' + target + ': No such directory');
+      }
+      return;
+    }
+
+    switch (input) {
+      case 'help':
+        showSuggestions('');
+        break;
+      case 'ls':
+        showSuggestions('cd ');
+        commandInput.value = 'cd ';
+        break;
+      case 'whoami':
+        showInfo('Lakshya Rao — Security Engineer | Developer | Tinkerer');
+        break;
+      case 'theme':
+        var isLight = document.body.classList.contains('light-mode');
+        setTheme(isLight ? 'dark' : 'light');
+        showInfo('Switched to ' + (isLight ? 'dark' : 'light') + ' mode');
+        break;
+      case 'clear':
+        suggestions.classList.remove('visible');
+        suggestions.innerHTML = '';
+        break;
+      case 'exit':
+        setHackerMode(false);
+        break;
+      case 'pwd':
+        showInfo(window.location.pathname);
+        break;
+      case 'date':
+        showInfo(new Date().toString());
+        break;
+      case 'uname':
+        showInfo('Hugo/re-terminal on GitHub Pages — about.inqstv.in');
+        break;
+      case 'resume':
+        window.open('/resume/Lakshya_Rao_Resume.pdf', '_blank');
+        showInfo('Opening resume...');
+        break;
+      case 'github':
+        window.open('https://github.com/lakshyarao22', '_blank');
+        showInfo('Opening GitHub...');
+        break;
+      case 'linkedin':
+        window.open('https://www.linkedin.com/in/inqstv/', '_blank');
+        showInfo('Opening LinkedIn...');
+        break;
+      case 'youtube':
+        window.open('https://www.youtube.com/@inqstv', '_blank');
+        showInfo('Opening YouTube...');
+        break;
+      default:
+        showError(input + ': command not found. Type "help" for commands.');
+    }
+  }
+
+  function showInfo(msg) {
+    suggestions.innerHTML = '<div class="suggestion-item"><span class="suggestion-item__cmd">' + msg + '</span><span class="suggestion-item__desc"></span></div>';
+    suggestions.classList.add('visible');
+    setTimeout(function() { showSuggestions(''); }, 2000);
+  }
+
+  function showError(msg) {
+    suggestions.innerHTML = '<div class="suggestion-item"><span class="suggestion-item__cmd" style="color:#ffadad;">' + msg + '</span><span class="suggestion-item__desc"></span></div>';
+    suggestions.classList.add('visible');
+    setTimeout(function() { showSuggestions(''); }, 2000);
+  }
 })();
 </script>

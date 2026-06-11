@@ -23,19 +23,12 @@
   {{ end }}
 </header>
 
-<!-- Hacker Mode: ASCII Banner + Command Input -->
-<div id="hacker-panel" class="hacker-panel" style="display:none;">
-  <pre class="ascii-art">
- _                   _
-(_)_ __   __ _ ___ | |___   __
-| | '_ \ / _` / __|| __\ \ / /
-| | | | | (_| \__ \| |_ \ V /
-|_|_| |_|\__, |___/ \__| \_/
-            |_|
-  </pre>
-  <div class="command-line">
-    <span class="command-prompt">visitor@inqstv.in:~$ </span>
-    <input type="text" id="command-input" class="command-input" placeholder="type 'help' for commands..." autocomplete="off" spellcheck="false" />
+<!-- Hacker Mode: Bottom Command Bar Overlay -->
+<div id="hacker-overlay" class="hacker-overlay" style="display:none;">
+  <div class="hacker-overlay__suggestions" id="command-suggestions"></div>
+  <div class="hacker-overlay__bar">
+    <span class="command-prompt">~$</span>
+    <input type="text" id="command-input" class="command-input" placeholder="type a command..." autocomplete="off" spellcheck="false" />
+    <span class="command-hint" id="command-ghost"></span>
   </div>
-  <div id="command-output" class="command-output"></div>
 </div>
