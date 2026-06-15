@@ -34,6 +34,13 @@ Retro Gameboy-inspired theme for EmulationStation on 4:3 handheld consoles. Pixe
 
 ---
 
+### [Macropad](https://github.com/lakshyarao22/macropad-qmk)
+A versatile 3x3 macro keyboard powered by the RP2040 microcontroller, featuring customizable keymaps and programmable layers for productivity and entertainment.
+
+`QMK` `RP2040` `Macropad` `C`
+
+---
+
 ### [DWM](https://github.com/lakshyarao22/dwm)
 My custom fork of suckless Dynamic Window Manager. Patched and configured exactly how I want it.
 
