@@ -1,7 +1,7 @@
 +++
 title = "How to Toggle Your Mic with a Keyboard Shortcut on macOS"
 date = "2026-08-05"
-draft = true
+draft = false
 tags = ["MacOS", "Privacy", "DIY", "Shortcuts"]
 cover = "/img/blog/toggle-mic/hero-toggle-mic.png"
 coverCaption = "Keyboard shortcut setup for fast mic mute and unmute on macOS"
